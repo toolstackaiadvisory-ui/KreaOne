@@ -61,9 +61,38 @@ export default function ProjectDetail({ projectId, onBack }: { projectId: number
           </div>
         </div>
 
-        <InsightBox text={p.insight} type={insType} />
+        <InsightBox 
+  text={
+    p.risk === 'delayed'
+      ? "Project is delayed due to vendor underperformance in Tier 2 cities. Immediate vendor diversification recommended."
+      : p.risk === 'atrisk'
+      ? "Panel supply lagging in key segments. Recommend activating hybrid supply (panel + vendor) to maintain timelines."
+      : "Study is on track. Panel supply performing efficiently with strong IR and completion rates."
+  } 
+  type={insType} 
+/>
 
         {/* Key fields grid */}
+        <Card style={{ marginTop: '16px' }}>
+  <SectionHeader title="Supply Strategy" />
+
+  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div>
+      <div style={{ fontSize: '12px', color: '#6B7280' }}>Supply Type</div>
+      <div style={{ fontSize: '14px', fontWeight: 600 }}>{p.supplyType}</div>
+    </div>
+
+    <div>
+      <div style={{ fontSize: '12px', color: '#6B7280' }}>Panel Contribution</div>
+      <div style={{ fontSize: '14px', fontWeight: 600 }}>65%</div>
+    </div>
+
+    <div>
+      <div style={{ fontSize: '12px', color: '#6B7280' }}>Vendor Contribution</div>
+      <div style={{ fontSize: '14px', fontWeight: 600 }}>35%</div>
+    </div>
+  </div>
+</Card>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginTop: '18px', padding: '16px', background: C.bg, borderRadius: '12px' }}>
           {[
             { label: 'Account Owner', value: p.accountOwner },
@@ -79,6 +108,30 @@ export default function ProjectDetail({ projectId, onBack }: { projectId: number
         </div>
 
         {/* KPI strip */}
+        <Card style={{ marginTop: '16px' }}>
+  <SectionHeader title="Study Progress" />
+  
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '16px', marginBottom: '12px' }}>
+    <div>
+      <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Target Sample</div>
+      <div style={{ fontSize: '16px', fontWeight: 700 }}>{p.n}</div>
+    </div>
+    <div>
+      <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Completed</div>
+      <div style={{ fontSize: '16px', fontWeight: 700 }}>{p.complete}</div>
+    </div>
+    <div>
+      <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Remaining</div>
+      <div style={{ fontSize: '16px', fontWeight: 700 }}>{p.n - p.complete}</div>
+    </div>
+    <div>
+      <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Completion %</div>
+      <div style={{ fontSize: '16px', fontWeight: 700 }}>{pct}%</div>
+    </div>
+  </div>
+
+  <ProgressBar value={pct} />
+</Card>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(0,1fr))', borderTop: `1px solid ${C.border}`, paddingTop: '18px', marginTop: '18px' }}>
           {[['N=' + p.n, 'Sample'], [p.complete + '/' + p.n, 'Completes'], [p.loi + ' min', 'LOI'], [p.ir + '%', 'IR'], ['$' + p.cpi, 'CPI'], ['Rs ' + (margin / 1000).toFixed(0) + 'K', 'Margin']].map(([val, lbl], i) => (
             <div key={lbl} style={{ textAlign: 'center', borderRight: i < 5 ? `1px solid ${C.border}` : 'none', padding: '0 12px' }}>
