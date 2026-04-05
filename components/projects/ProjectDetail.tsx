@@ -4,9 +4,9 @@ import { AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, Cart
 import { projects, vendors, panelists, interviewers } from '@/lib/data'
 import { StatusBadge, RiskBadge, ProgressBar, ScoreBar, MethodBadge, SupplyBadge, InsightBox, Card, Avatar, SectionHeader, KpiCard, PanelistTypeBadge } from '@/components/ui'
 
-const C   = { border: '#E5E7EB', t1: '#111827', t2: '#6B7280', t3: '#9CA3AF', bg: '#F9FAFB' }
-const G   = '#F3F4F6'
-const TK  = '#9CA3AF'
+const C = { border: '#E5E7EB', t1: '#111827', t2: '#6B7280', t3: '#9CA3AF', bg: '#F9FAFB' }
+const G = '#F3F4F6'
+const TK = '#9CA3AF'
 const TIP = { backgroundColor: '#fff', borderColor: '#E5E7EB', borderWidth: 1, titleColor: '#9CA3AF', bodyColor: '#111827', bodyFont: { weight: '600' as any, size: 13 }, padding: 12, cornerRadius: 10, displayColors: false }
 
 const CT = ({ active, payload, label }: any) => {
@@ -23,16 +23,16 @@ const TABS = ['overview', 'vendors', 'panel', 'cati'] as const
 
 export default function ProjectDetail({ projectId, onBack }: { projectId: number; onBack: () => void }) {
   const [tab, setTab] = useState<typeof TABS[number]>('overview')
-  const p   = projects.find(x => x.id === projectId) || projects[0]
+  const p = projects.find(x => x.id === projectId) || projects[0]
   const pct = Math.round((p.complete / p.n) * 100)
   const margin = p.revenue - p.vendorCost
   const insType = p.risk === 'delayed' ? 'danger' : p.risk === 'atrisk' ? 'warn' : 'success'
 
-  const irData    = p.irTrend.map((v, i) => ({ day: `D${i + 1}`, ir: v }))
+  const irData = p.irTrend.map((v, i) => ({ day: `D${i + 1}`, ir: v }))
   const dailyData = p.dailyCompletes.filter(v => v > 0).map((v, i) => ({ day: `Apr ${i + 1}`, completes: v }))
   const quotas = [
-    { s: 'HCPs – Specialist', f: 85 }, { s: 'HCPs – GP/GP',    f: 62 },
-    { s: 'Patients – Urban',  f: 91 }, { s: 'Patients – Rural', f: 78 },
+    { s: 'HCPs – Specialist', f: 85 }, { s: 'HCPs – GP/GP', f: 62 },
+    { s: 'Patients – Urban', f: 91 }, { s: 'Patients – Rural', f: 78 },
     { s: 'Healthcare Consumers', f: 44 },
   ]
   const splitData = [{ name: 'M3 Panel India', value: 55, color: '#FF6A00' }, { name: 'Sermo Network', value: 28, color: '#2563EB' }, { name: 'PanelXchange', value: 17, color: '#7C3AED' }]
@@ -61,38 +61,38 @@ export default function ProjectDetail({ projectId, onBack }: { projectId: number
           </div>
         </div>
 
-        <InsightBox 
-  text={
-    p.risk === 'delayed'
-      ? "Project is delayed due to vendor underperformance in Tier 2 cities. Immediate vendor diversification recommended."
-      : p.risk === 'atrisk'
-      ? "Panel supply lagging in key segments. Recommend activating hybrid supply (panel + vendor) to maintain timelines."
-      : "Study is on track. Panel supply performing efficiently with strong IR and completion rates."
-  } 
-  type={insType} 
-/>
+        <InsightBox
+          text={
+            p.risk === 'delayed'
+              ? "Project is delayed due to vendor underperformance in Tier 2 cities. Immediate vendor diversification recommended."
+              : p.risk === 'atrisk'
+                ? "Panel supply lagging in key segments. Recommend activating hybrid supply (panel + vendor) to maintain timelines."
+                : "Study is on track. Panel supply performing efficiently with strong IR and completion rates."
+          }
+          type={insType}
+        />
 
         {/* Key fields grid */}
         <Card style={{ marginTop: '16px' }}>
-  <SectionHeader title="Supply Strategy" />
+          <SectionHeader title="Supply Strategy" />
 
-  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-    <div>
-      <div style={{ fontSize: '12px', color: '#6B7280' }}>Supply Type</div>
-      <div style={{ fontSize: '14px', fontWeight: 600 }}>{p.supplyType}</div>
-    </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div style={{ fontSize: '12px', color: '#6B7280' }}>Supply Type</div>
+              <div style={{ fontSize: '14px', fontWeight: 600 }}>{p.supplyType}</div>
+            </div>
 
-    <div>
-      <div style={{ fontSize: '12px', color: '#6B7280' }}>Panel Contribution</div>
-      <div style={{ fontSize: '14px', fontWeight: 600 }}>65%</div>
-    </div>
+            <div>
+              <div style={{ fontSize: '12px', color: '#6B7280' }}>Panel Contribution</div>
+              <div style={{ fontSize: '14px', fontWeight: 600 }}>65%</div>
+            </div>
 
-    <div>
-      <div style={{ fontSize: '12px', color: '#6B7280' }}>Vendor Contribution</div>
-      <div style={{ fontSize: '14px', fontWeight: 600 }}>35%</div>
-    </div>
-  </div>
-</Card>
+            <div>
+              <div style={{ fontSize: '12px', color: '#6B7280' }}>Vendor Contribution</div>
+              <div style={{ fontSize: '14px', fontWeight: 600 }}>35%</div>
+            </div>
+          </div>
+        </Card>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginTop: '18px', padding: '16px', background: C.bg, borderRadius: '12px' }}>
           {[
             { label: 'Account Owner', value: p.accountOwner },
@@ -109,29 +109,29 @@ export default function ProjectDetail({ projectId, onBack }: { projectId: number
 
         {/* KPI strip */}
         <Card style={{ marginTop: '16px' }}>
-  <SectionHeader title="Study Progress" />
-  
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '16px', marginBottom: '12px' }}>
-    <div>
-      <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Target Sample</div>
-      <div style={{ fontSize: '16px', fontWeight: 700 }}>{p.n}</div>
-    </div>
-    <div>
-      <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Completed</div>
-      <div style={{ fontSize: '16px', fontWeight: 700 }}>{p.complete}</div>
-    </div>
-    <div>
-      <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Remaining</div>
-      <div style={{ fontSize: '16px', fontWeight: 700 }}>{p.n - p.complete}</div>
-    </div>
-    <div>
-      <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Completion %</div>
-      <div style={{ fontSize: '16px', fontWeight: 700 }}>{pct}%</div>
-    </div>
-  </div>
+          <SectionHeader title="Study Progress" />
 
-  <ProgressBar value={pct} />
-</Card>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '16px', marginBottom: '12px' }}>
+            <div>
+              <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Target Sample</div>
+              <div style={{ fontSize: '16px', fontWeight: 700 }}>{p.n}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Completed</div>
+              <div style={{ fontSize: '16px', fontWeight: 700 }}>{p.complete}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Remaining</div>
+              <div style={{ fontSize: '16px', fontWeight: 700 }}>{p.n - p.complete}</div>
+            </div>
+            <div>
+              <div style={{ fontSize: '11px', color: '#9CA3AF' }}>Completion %</div>
+              <div style={{ fontSize: '16px', fontWeight: 700 }}>{pct}%</div>
+            </div>
+          </div>
+
+          <ProgressBar value={pct} max={100} />
+        </Card>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, minmax(0,1fr))', borderTop: `1px solid ${C.border}`, paddingTop: '18px', marginTop: '18px' }}>
           {[['N=' + p.n, 'Sample'], [p.complete + '/' + p.n, 'Completes'], [p.loi + ' min', 'LOI'], [p.ir + '%', 'IR'], ['$' + p.cpi, 'CPI'], ['Rs ' + (margin / 1000).toFixed(0) + 'K', 'Margin']].map(([val, lbl], i) => (
             <div key={lbl} style={{ textAlign: 'center', borderRight: i < 5 ? `1px solid ${C.border}` : 'none', padding: '0 12px' }}>
@@ -159,7 +159,7 @@ export default function ProjectDetail({ projectId, onBack }: { projectId: number
               <SectionHeader title="IR Daily Trend" />
               <ResponsiveContainer width="100%" height={185}>
                 <AreaChart data={irData}>
-                  <defs><linearGradient id="irG" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#FF6A00" stopOpacity={0.15}/><stop offset="95%" stopColor="#FF6A00" stopOpacity={0}/></linearGradient></defs>
+                  <defs><linearGradient id="irG" x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor="#FF6A00" stopOpacity={0.15} /><stop offset="95%" stopColor="#FF6A00" stopOpacity={0} /></linearGradient></defs>
                   <CartesianGrid strokeDasharray="3 3" stroke={G} />
                   <XAxis dataKey="day" tick={{ fill: TK, fontSize: 11 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: TK, fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `${v}%`} />
@@ -176,7 +176,7 @@ export default function ProjectDetail({ projectId, onBack }: { projectId: number
                   <XAxis dataKey="day" tick={{ fill: TK, fontSize: 10 }} axisLine={false} tickLine={false} />
                   <YAxis tick={{ fill: TK, fontSize: 11 }} axisLine={false} tickLine={false} />
                   <Tooltip content={<CT />} />
-                  <Bar dataKey="completes" name="Completes" fill="#16A34A" radius={[5,5,0,0]} fillOpacity={0.85} />
+                  <Bar dataKey="completes" name="Completes" fill="#16A34A" radius={[5, 5, 0, 0]} fillOpacity={0.85} />
                 </BarChart>
               </ResponsiveContainer>
             </Card>
@@ -231,7 +231,7 @@ export default function ProjectDetail({ projectId, onBack }: { projectId: number
             <Card>
               <SectionHeader title="Supply Split" />
               <div style={{ display: 'flex', gap: '14px', alignItems: 'center' }}>
-                <PieChart width={100} height={100}><Pie data={splitData} cx={46} cy={46} innerRadius={30} outerRadius={46} dataKey="value" strokeWidth={0}>{splitData.map((d,i) => <Cell key={i} fill={d.color} />)}</Pie></PieChart>
+                <PieChart width={100} height={100}><Pie data={splitData} cx={46} cy={46} innerRadius={30} outerRadius={46} dataKey="value" strokeWidth={0}>{splitData.map((d, i) => <Cell key={i} fill={d.color} />)}</Pie></PieChart>
                 <div style={{ flex: 1 }}>
                   {splitData.map(d => (<div key={d.name} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #F9FAFB' }}><span style={{ fontSize: '11.5px', color: C.t2, display: 'flex', alignItems: 'center', gap: '6px' }}><span style={{ width: '8px', height: '8px', borderRadius: '2px', background: d.color, display: 'inline-block' }} />{d.name}</span><span style={{ fontWeight: 600, fontSize: '12px' }}>{d.value}%</span></div>))}
                 </div>
@@ -289,10 +289,10 @@ export default function ProjectDetail({ projectId, onBack }: { projectId: number
               <thead><tr>{['Respondent ID', 'Interviewer', 'Duration', 'Status', 'Date/Time'].map(h => <th key={h} style={{ padding: '10px 16px', textAlign: 'left', fontSize: '11px', fontWeight: 600, color: C.t3, textTransform: 'uppercase', letterSpacing: '0.6px', borderBottom: `1px solid ${C.border}`, background: '#FAFAFA' }}>{h}</th>)}</tr></thead>
               <tbody>
                 {Array.from({ length: 8 }, (_, i) => {
-                  const ss = ['completed','completed','pending','completed','callback','completed','completed','pending']
+                  const ss = ['completed', 'completed', 'pending', 'completed', 'callback', 'completed', 'completed', 'pending']
                   const ivs = interviewers.slice(0, 4)
-                  const s   = ss[i]
-                  const sc  = s === 'completed' ? { bg: '#DCFCE7', color: '#15803D' } : s === 'pending' ? { bg: '#FEF3C7', color: '#B45309' } : { bg: '#DBEAFE', color: '#1D4ED8' }
+                  const s = ss[i]
+                  const sc = s === 'completed' ? { bg: '#DCFCE7', color: '#15803D' } : s === 'pending' ? { bg: '#FEF3C7', color: '#B45309' } : { bg: '#DBEAFE', color: '#1D4ED8' }
                   return (
                     <tr key={i}>
                       <td style={{ padding: '12px 16px', borderBottom: '1px solid #F9FAFB', fontFamily: 'monospace', fontSize: '12px', color: C.t3 }}>RES-{1001 + i}</td>
