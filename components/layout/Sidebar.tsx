@@ -1,6 +1,6 @@
 'use client'
 
-type Page = 'dashboard' | 'projects' | 'vendors' | 'panel' | 'cati' | 'finance'
+type Page = 'dashboard' | 'projects' | 'vendors' | 'panel' | 'cati' | 'finance' | 'project-detail'
 
 const NAV_GROUPS = [
   { section: 'Core', items: [
